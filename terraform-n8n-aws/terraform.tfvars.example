@@ -1,0 +1,12 @@
+aws_region   = "us-east-1"
+project_name = "n8n"
+environment  = "dev"
+
+key_pair_public_key = "ssh-ed25519 AAAA... your-key-comment"
+
+# Restrict these to your own IP once you know it, e.g. "203.0.113.5/32"
+allowed_ssh_cidr = "0.0.0.0/0"
+allowed_n8n_cidr = "0.0.0.0/0"
+
+instance_type     = "t3.micro"
+db_instance_class = "db.t3.micro"
