@@ -23,7 +23,7 @@ Link to Travel AI: https://github.com/carlostorresCloud/TravelAI
 
 ## Architecture Diagram
 
-it will go here - WIP
+![Alt text for the image](AWS-Architecture-Diagram.png)
 
 
 ## Before you deploy
