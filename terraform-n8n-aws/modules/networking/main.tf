@@ -48,12 +48,13 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public.id
 }
 
-# Security group for the n8n EC2 instance
+# Security group for the EC2 instance hosting Nginx & n8n
 resource "aws_security_group" "ec2" {
   name        = "${var.project_name}-ec2-sg"
   description = "Allow SSH and n8n web access"
   vpc_id      = aws_vpc.main.id
 
+  # SSH access (restricted to your specified IP range)
   ingress {
     description = "SSH"
     from_port   = 22
@@ -62,14 +63,25 @@ resource "aws_security_group" "ec2" {
     cidr_blocks = [var.allowed_ssh_cidr]
   }
 
+  # Inbound HTTP web traffic (for domain access & Certbot SSL renewal)
   ingress {
-    description = "n8n UI"
-    from_port   = var.n8n_port
-    to_port     = var.n8n_port
+    description = "HTTP"
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = [var.allowed_n8n_cidr]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Inbound HTTPS web traffic (for secure Nginx domain access)
+  ingress {
+    description = "HTTPS"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Standard Outbound traffic block
   egress {
     from_port   = 0
     to_port     = 0

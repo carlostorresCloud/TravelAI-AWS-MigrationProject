@@ -23,7 +23,7 @@ variable "vpc_cidr" {
 }
 
 variable "public_subnet_cidrs" {
-  description = "CIDR blocks for public subnets. RDS requires a subnet group spanning >= 2 Availability zones even in single zone mode."
+  description = "CIDR blocks for public subnets. RDS requires a subnet group spanning >= 2 AZs even in single-AZ mode."
   type        = list(string)
   default     = ["10.20.1.0/24", "10.20.2.0/24"]
 }
@@ -43,11 +43,11 @@ variable "instance_type" {
 variable "ec2_root_volume_size" {
   description = "Root EBS volume size in GB (Free Tier covers up to 30GB gp2/gp3 total)"
   type        = number
-  default     = 20
+  default     = 30
 }
 
 variable "key_pair_public_key" {
-  description = "Public key material used to create the EC2 key pair"
+  description = "Public key material (contents of e.g. ~/.ssh/id_ed25519.pub) used to create the EC2 key pair"
   type        = string
 }
 
