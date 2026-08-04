@@ -71,8 +71,7 @@ Nginx config used is in `nginx/n8n.conf` (see below).
 
 ```bash
 sudo apt install nginx certbot python3-certbot-nginx -y
-sudo cp nginx/n8n.conf /etc/nginx/sites-available/n8n
-sudo ln -s /etc/nginx/sites-available/n8n /etc/nginx/sites-enabled/
+sudo cp nginx/n8n.conf /etc/nginx/conf.d/n8n.conf
 sudo nginx -t && sudo systemctl reload nginx
 sudo certbot --nginx -d your-domain.com
 ```
